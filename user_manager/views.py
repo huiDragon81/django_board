@@ -43,8 +43,9 @@ def join_page(request):
             password=form_data.cleaned_data['password']
             User.objects.create_user(username=username, password=password)
             return redirect('/user/login')
-
+    else:
+        form_data = JoinForm()
     template = get_template('join_form.html')
-    context = Context({'join_form': JoinForm})
+    context = Context({'join_form': form_data})
     context.update(csrf(request))
     return HttpResponse(template.render(context))
